@@ -29,21 +29,23 @@ let callAjax = function () {
         var img = refJson.items[i].volumeInfo.imageLinks.thumbnail;
         var rating = refJson.items[i].volumeInfo.averageRating;
         var lang = refJson.items[i].volumeInfo.language;
-
+        var isbn = refJson.items[i].volumeInfo.industryIdentifiers[0].identifier;
+        
         var booktitle1 = refJson.items[i+1].volumeInfo.title;
         var authorname1 = refJson.items[i+1].volumeInfo.authors;
         var preview1 = refJson.items[i+1].volumeInfo.previewLink;
         var img1 = refJson.items[i+1].volumeInfo.imageLinks.thumbnail;
         var rating1 = refJson.items[i+1].volumeInfo.averageRating;
         var lang1 = refJson.items[i+1].volumeInfo.language;
+        var isbn1 = refJson.items[i+1].volumeInfo.industryIdentifiers[0].identifier;
 
-        document.querySelector("#book").innerHTML +=  insertVal(booktitle, authorname,preview,img,rating,lang)+
-                                                    insertVal(booktitle1, authorname1,preview1,img1,rating1,lang1);
+        document.querySelector("#book").innerHTML +=  insertVal(booktitle, authorname,preview,img,rating,lang,isbn)+
+                                                    insertVal(booktitle1, authorname1,preview1,img1,rating1,lang1,isbn1);
 
      }
  }
  
- let insertVal =  function(booktitle, authorname,preview,img,rating,lang)
+ let insertVal =  function(booktitle, authorname,preview,img,rating,lang,isbn)
  {
 
         var htmlCard = `<div class="col-5 p-2">
@@ -58,7 +60,16 @@ let callAjax = function () {
                 <p class="card-text">Author: ${authorname}</p>
                 <p class="card-text">Publisher: ${lang}</p>
                 <p class="card-text">Rating: ${rating}</p>
-                <a target="_blank" href="#" class="btn btn-secondary">Read Book</a>
+                <p class="card-text">Isbn: ${isbn}</p>
+                <form action = "addbook" method = "post">
+                	<input type = "hidden" name = "title" value = "${booktitle}">
+                	<input type = "hidden" name = "isbn" value = "${isbn}">
+                	<input type = "hidden" name = "img" value = "${img}">
+                	<input type = "hidden" name = "rating" value = "${rating}">
+                	<input type = "hidden" name = "lang" value = "${lang}">
+                	<input type = "hidden" name = "author" value = "${authorname}">
+                	<button type = "submit" class = "btn btn-secondary">Add book</button>
+                </form>
             </div>
             </div>
         </div>

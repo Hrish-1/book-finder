@@ -18,7 +18,7 @@
 <title>The Book Finder</title>
 </head>
 <body style="background-color: #7382763b">
-	<div class="container-fluid p-0 h-100 overflow-auto" >
+	<div class="container-fluid p-0 h-100" >
 	
 		<nav class="navbar navbar-expand-lg navbar-light bg-dark">
   		        <a class="navbar-brand text-light" href="#"><b>The Book Finder</b></a>

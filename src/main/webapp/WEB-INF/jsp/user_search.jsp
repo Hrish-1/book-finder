@@ -2,9 +2,9 @@
     pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.List" %>
 <%@ page import = "com.book.dto.Book" %>
-<%
+ <%
 	List<Book> book = (List<Book>)request.getAttribute("book");
-%>
+%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,9 +27,10 @@
 	
 		<nav class="navbar navbar-expand-lg navbar-light bg-dark">
   		        <a class="navbar-brand text-light" href="#"><b>The Book Finder</b></a>
+  
  	        <form class="form-inline my-2 my-lg-0 mx-5 w-75 ">
-                <input class="form-control mr-sm-2 w-75" id="search_book" type="text" placeholder="Search" aria-label="Search">    
-                <a href = "user-book-search"><button type="button" class="btn btn-outline-success my-2 my-sm-0" id="search_book_btn" onclick = "getBook()">Search</button></a>
+                <input class="form-control mr-sm-2 w-75" id="search_book" type="text" placeholder="Search" aria-label="Search">
+               <a href = "#" onclick = "window.location.reload()"><button type="button" class="btn btn-outline-success my-2 my-sm-0" id="search_book_btn" onclick = "getBook()">Search</button></a>  
             </form>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,7 +62,7 @@
         </nav>
 	     <div class = "row justify-content-center" id = "book-container">
 	     
-	     <div class="row justify-content-between mt-4" id="book" style = "width : 90vw;">
+	      <div class="row justify-content-between mt-4" id="book" style = "width : 90vw;">
           <%for(Book b : book){ %>
 	        <div class="col-6 p-2">
 	        <div class="card" style="">
@@ -83,7 +84,7 @@
 	        </div>
 	        <% }%>
 	        </div>
-	     </div>   
+	     </div>    
         <div class="card-footer text-light bg-dark fixed-bottom d-flex justify-content-center">
             <b>&#169 The Book Finder</b>
           </div>

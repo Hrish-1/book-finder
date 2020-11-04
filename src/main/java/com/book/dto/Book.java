@@ -14,20 +14,19 @@ public class Book {
 	String rating;
 	String lang;
 	String author;
+	int quantity;
 	
 	public Book() {
 		super();
 		
 	}
+	
+	public int getQuantity() {
+		return quantity;
+	}
 
-	public Book(String isbn, String title, String img, String rating, String lang, String author) {
-		super();
-		this.isbn = isbn;
-		this.title = title;
-		this.img = img;
-		this.rating = rating;
-		this.lang = lang;
-		this.author = author;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
 	public String getIsbn() {

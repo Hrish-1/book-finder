@@ -20,9 +20,40 @@ let getBook = function () {
     xhr.onload = () => {
       const refJson = JSON.parse(xhr.responseText);
       // using this data :: we have to DOM Operation;
+//      findBook();
     };
   
     xhr.open("GET", "http://localhost:8080/getbook?booktitle="+bookTitle);
     xhr.send();
   };
-
+  
+//let findBook = () => {
+//	
+//	document.querySelector("#book-1").innerHTML = htmlCard();
+//} 
+//let htmlCard = () => {
+//	
+//	var bookHtml = `
+//          <%for(Book b : bkname){ %>
+//	        <div class="col-6 p-2">
+//	        <div class="card" style="">
+//	        <div class="row">
+//	            <div class="col-4">
+//	            <img src=<%=b.getImg()%> class="card-img" alt="...">
+//	            </div>
+//	            <div class="col-8">
+//	            <div class="card-body">
+//	                <h5 class="card-title"><%=b.getTitle() %></h5>
+//	                <p class="card-text">Author : <%=b.getAuthor() %></p>
+//	                <p class="card-text">Language : <%=b.getLang() %></p>
+//	                <p class="card-text">Rating : <%=b.getRating() %></p>
+//					<button class = "btn btn-secondary">Buy Book</button>
+//	            </div>
+//	            </div>
+//	        </div>
+//	        </div>
+//	        </div>
+//	        <% }%>
+//	        `
+//    return bookHtml;
+//}

@@ -14,4 +14,5 @@ public interface BookRepo extends JpaRepository<Book,String>{
 	
 	@Query(value = "from Book where title = ?1")
 	List<Book> findAllByTitle(String title);
+
 }

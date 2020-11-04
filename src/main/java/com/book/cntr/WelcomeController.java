@@ -2,12 +2,15 @@ package com.book.cntr;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.book.dto.Book;
 import com.book.dto.User;
+import com.book.service.BookService;
 import com.book.service.UserService;
 
 @Controller
@@ -16,6 +19,8 @@ public class WelcomeController {
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	BookService bookService;
 	//Index page
 	String home() {
 		return "index";
@@ -33,9 +38,11 @@ public class WelcomeController {
 	}
 	// Go to user home page from login page
 	@RequestMapping(value = "/logged")
-	String loggedUser(User user) {
+	String loggedUser(User user,HttpServletRequest req) {
 		List<User> li = userService.findUser(user);
-		System.out.println(li.get(0));
+		System.out.println(user);
+		List<Book> book = bookService.findAll();
+		req.setAttribute("book",book);
 		if(!li.isEmpty()) {
 			return "user_home";
 		}else {

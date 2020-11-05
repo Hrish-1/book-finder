@@ -3,10 +3,12 @@ package com.book.cntr;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.book.dto.Book;
 import com.book.dto.User;
@@ -33,17 +35,19 @@ public class WelcomeController {
 	//Go to login page from register page
 	@RequestMapping(value = "/login")
 	String addUser(User user) {
+		if(user.getUserName() != null && user.getPassword() != null)
 		userService.addUser(user);
 		return "login_user";
 	}
 	// Go to user home page from login page
 	@RequestMapping(value = "/logged")
-	String loggedUser(User user,HttpServletRequest req) {
+	String loggedUser(User user,HttpServletRequest req,HttpSession session) {
 		List<User> li = userService.findUser(user);
 		System.out.println(user);
 		List<Book> book = bookService.findAll();
 		req.setAttribute("book",book);
 		if(!li.isEmpty()) {
+			session.setAttribute("uname",li.get(0).getUserName());
 			return "user_home";
 		}else {
 			return "login_user";
@@ -62,6 +66,12 @@ public class WelcomeController {
 		}else {
 			return "login_admin";
 		}
+	}
+	@RequestMapping(value = "user-logout")
+	String userLogout(HttpSession session) {
+		//req.getSession().invalidate();
+		session.invalidate();
+		return "index";
 	}
 //	@RequestMapping(value = "/user-home")
 //	String userHome(Book book){

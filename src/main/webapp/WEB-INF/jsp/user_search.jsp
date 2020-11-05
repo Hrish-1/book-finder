@@ -4,7 +4,8 @@
 <%@ page import = "com.book.dto.Book" %>
  <%
 	List<Book> book = (List<Book>)request.getAttribute("book");
-%> 
+ 	String uname = (String)session.getAttribute("uname");
+ %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,7 +45,7 @@
                     </li>
                     <li class="nav-item dropdown mx-1">
                         <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Welcome
+                            <%= uname %>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="prep_log_form.htm">User Login</a>
@@ -54,7 +55,7 @@
                     </li>
                     <li class="nav-item">
       	                <!-- register.htm -->
-                        <a class="nav-link text-light" href="prep_reg_form.htm">Logout</a>
+                        <a class="nav-link text-light" href="user-logout">Logout</a>
                     </li>
                 </ul>
     

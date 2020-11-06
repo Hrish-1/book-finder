@@ -60,6 +60,9 @@ public class WelcomeController {
 		if(!li.isEmpty()) {
 			session.setAttribute("uname",li.get(0).getUserName());
 			session.setAttribute("uid",li.get(0).getId());
+			session.setAttribute("name", li.get(0).getName());
+			session.setAttribute("pass",li.get(0).getPassword());
+			session.setAttribute("mail",li.get(0).getMail());
 			return "user_home";
 		}else {
 			return "login_user";
@@ -72,12 +75,18 @@ public class WelcomeController {
 	}
 	// Go to admin home
 	@RequestMapping(value = "/admin-check")
-	String adminCheck(User user) {
+	String adminCheck(User user,HttpSession session) {
 		if(user.getUserName().equals("Hrish1") && user.getPassword().equals("4321")) {
+			session.setAttribute("name","Hrish1");
 			return "admin_home";
 		}else {
 			return "login_admin";
 		}
+	}
+	@GetMapping("/admin-logout")
+	String adminLogout(HttpSession session) {
+		session.invalidate();
+		return "index";
 	}
 	@RequestMapping(value = "user-logout")
 	String userLogout(HttpSession session) {

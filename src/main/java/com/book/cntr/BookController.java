@@ -28,17 +28,15 @@ public class BookController {
 	String bk;
 	
 	@RequestMapping(value = "/addbook", method = RequestMethod.POST)
-	public void addBook(Book book) {
+	public String addBook(Book book) {
 		System.out.println(bookService.findById(book.getIsbn()));
 		if(bookService.findById(book.getIsbn()).equals(Optional.empty())){
 			bookService.AddBook(book);
+			return "admin_home";
 		}else {
 			bookService.updateBook(book.getIsbn());
+			return "admin_home";
 		}
-		
-		System.out.println("record added");
-		System.out.println("book title "+book.getTitle());
-		System.out.println("book isbn "+book.getIsbn());
 	}
 	@RequestMapping(value = "/getbook", method = RequestMethod.GET)
 	public void getBook(@RequestParam String booktitle,HttpServletRequest request){
@@ -55,10 +53,13 @@ public class BookController {
 		return "user_search";
 	}
 	@RequestMapping(value = "/user-buy-book",method = RequestMethod.POST)
-	public void userBuyBook(Book book,User user) {
+	public String userBuyBook(Book book,User user,HttpSession session) {
 		System.out.println("hey-----------------------------------------");
 		System.out.println("bookTitle"+book.getTitle());
 		bookService.bookUserMap(book, user);
+		List<Book> book1 = bookService.findAll();
+		session.setAttribute("book",book1);
+		return "user_home";
 	}
 	
 	@GetMapping("/show-books")

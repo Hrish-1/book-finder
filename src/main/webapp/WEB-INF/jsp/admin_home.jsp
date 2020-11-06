@@ -49,7 +49,7 @@
                     </li>
                     <li class="nav-item">
       	                <!-- register.htm -->
-                        <a class="nav-link text-light" href="prep_reg_form.htm">Logout</a>
+                        <a class="nav-link text-light" href="admin-logout">Logout</a>
                     </li>
                 </ul>
     

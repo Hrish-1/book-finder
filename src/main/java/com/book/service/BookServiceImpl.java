@@ -81,12 +81,12 @@ public class BookServiceImpl implements BookService {
 		if(x == null) {
 			System.out.println("Time to add");
 			BookUser bookUser = new BookUser();
-			if(book.getQuantity() == 0) {
+			book.setQuantity(book.getQuantity() - 1);
+			if(book.getQuantity() <= 0) {
 				book.setStatus("Not Available");
 				bookRepo.save(book);
 				return;
 			}
-			book.setQuantity(book.getQuantity() - 1);
 			bookUser.setBook(book);
 			bookUser.setUser(user);
 			bookUser.setBooksBought(bookUser.getBooksBought() + 1);
@@ -100,12 +100,13 @@ public class BookServiceImpl implements BookService {
 		else{
 			BookUser b = bookUserRepo.findById(x).get();
 			System.out.println("Time to update");
-			if(book.getQuantity() == 0) {
+			book.setQuantity(book.getQuantity() - 1);
+			if(book.getQuantity() <= 0) {
 				book.setStatus("Not Available");
 				bookRepo.save(book);
 				return;
 			}
-			book.setQuantity(book.getQuantity() - 1);
+			
 			b.setBook(book);
 			b.setUser(user);
 			b.setBooksBought(b.getBooksBought() + 1);

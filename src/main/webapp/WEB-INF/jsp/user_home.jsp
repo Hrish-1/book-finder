@@ -6,6 +6,9 @@
 	List<Book> book = (List<Book>)session.getAttribute("book");
 	String uname = (String)session.getAttribute("uname");
 	int uid = (int)session.getAttribute("uid");
+	String pass = (String)session.getAttribute("pass");
+	String name = (String)session.getAttribute("name");
+	String mail = (String)session.getAttribute("mail");
 %>
 <!DOCTYPE html>
 <html>
@@ -89,6 +92,9 @@
 					 	<input type = "hidden" id = "status" name = "status" value = "<%=b.getStatus()%>">
 					 	<input type = "hidden" id = "userName" name = "userName" value = "<%=uname%>">
 					 	<input type = "hidden" id = "id" name = "id" value = "<%=uid %>">
+					 	<input type = "hidden" id = "pass" name = "password" value = "<%=pass %>">
+					 	<input type = "hidden" id = "name" name = "name" value = "<%=name %>">
+					 	<input type = "hidden" id = "mail" name = "mail" value = "<%=mail %>">
 					    <button class = "btn btn-secondary" type = "submit">Buy Book</button>
 	                </form>
 	            </div>

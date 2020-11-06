@@ -5,6 +5,7 @@
  <%
 	List<Book> book = (List<Book>)request.getAttribute("book");
  	String uname = (String)session.getAttribute("uname");
+ 	int uid = (int)session.getAttribute("uid");
  %> 
 <!DOCTYPE html>
 <html>
@@ -41,7 +42,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link text-light" href="#">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link text-light" href="user-home">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item dropdown mx-1">
                         <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -77,7 +78,20 @@
 	                <p class="card-text">Author : <%=b.getAuthor() %></p>
 	                <p class="card-text">Language : <%=b.getLang() %></p>
 	                <p class="card-text">Rating : <%=b.getRating() %></p>
-					<button class = "btn btn-secondary">Buy Book</button>
+	                <p class="card-text">Rating : <%=b.getStatus() %></p>
+					<form action = "user-buy-book" method = "post">
+						<input type = "hidden" id = "isbn" name = "isbn" value = "<%=b.getIsbn() %>">
+					 	<input type = "hidden" id = "title" name = "title" value = "<%=b.getTitle() %>">
+					 	<input type = "hidden" id = "author" name = "author" value = "<%=b.getAuthor() %>">
+					 	<input type = "hidden" id = "img"  name = "img" value = "<%=b.getImg() %>">
+					 	<input type = "hidden" id = "rating" name = "rating" value = "<%=b.getRating() %>">
+					 	<input type = "hidden" id = "lang" name = "lang" value = "<%=b.getLang() %>">
+					 	<input type = "hidden" id = "quantity" name = "quantity" value = "<%=b.getQuantity()%>">
+					 	<input type = "hidden" id = "status" name = "status" value = "<%=b.getStatus()%>">
+					 	<input type = "hidden" id = "userName" name = "userName" value = "<%=uname%>">
+					 	<input type = "hidden" id = "id" name = "id" value = "<%=uid %>">
+					    <button class = "btn btn-secondary" type = "submit">Buy Book</button>
+	                </form>
 	            </div>
 	            </div>
 	        </div>

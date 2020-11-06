@@ -11,4 +11,5 @@ import com.book.dto.User;
 public interface UserRepo extends CrudRepository<User,Integer> {
 			
 	List<User> findByUserName(String userName);
+	public User findByUserNameAndPassword(String username, String password);
 }

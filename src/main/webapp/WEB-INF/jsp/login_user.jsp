@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>    
+    pageEncoding="ISO-8859-1"%>
+ <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +14,7 @@
 <title>Login | Book Finder</title>
 </head>
 <body>
-	<div class="container-fluid">
+	 <div class="container-fluid">
 		<div class="row" style="height:100vh">
 			<div class="col d-flex justify-content-center align-items-center flex-column">
 				<div><h1>Login Here</h1></div>
@@ -28,9 +29,10 @@
 						<button type="submit" class="btn btn-dark" >LOGIN</button>
 					</div>
 				</form>
-				<a href="#">Not a User? Register Here</a>
+				<a href="register">Not a User? Register Here</a>
 			</div>
 		</div>
 	</div>
+	
 </body>
 </html>

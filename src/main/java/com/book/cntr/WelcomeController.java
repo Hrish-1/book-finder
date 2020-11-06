@@ -7,8 +7,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.book.dto.Book;
 import com.book.dto.User;
@@ -39,15 +44,22 @@ public class WelcomeController {
 		userService.addUser(user);
 		return "login_user";
 	}
+	@RequestMapping(value = "/user-home")
+	public String userHome(HttpServletRequest req,HttpSession session) {
+		List<Book> book = bookService.findAll();
+		session.setAttribute("book",book);
+		return "user_home";
+	} 
 	// Go to user home page from login page
 	@RequestMapping(value = "/logged")
 	String loggedUser(User user,HttpServletRequest req,HttpSession session) {
 		List<User> li = userService.findUser(user);
 		System.out.println(user);
 		List<Book> book = bookService.findAll();
-		req.setAttribute("book",book);
+		session.setAttribute("book",book);
 		if(!li.isEmpty()) {
 			session.setAttribute("uname",li.get(0).getUserName());
+			session.setAttribute("uid",li.get(0).getId());
 			return "user_home";
 		}else {
 			return "login_user";
@@ -73,8 +85,54 @@ public class WelcomeController {
 		session.invalidate();
 		return "index";
 	}
+	@GetMapping("/show-users")
+	public String showAllUsers(HttpServletRequest request) {
+		request.setAttribute("users", userService.showAllUsers());
+		request.setAttribute("mode", "ALL_USERS");
+		return "showAllUsers";
+	}
 //	@RequestMapping(value = "/user-home")
 //	String userHome(Book book){
 //		return "user_home";
 //	}
+	@RequestMapping("/delete-user")
+	public String deleteUser(@RequestParam int id, HttpServletRequest request) {
+		userService.deleteMyUser(id);
+		request.setAttribute("users", userService.showAllUsers());
+		request.setAttribute("mode", "ALL_USERS");
+		return "showAllUsers";
+	}
+	
+	@RequestMapping("/edit-user")
+	public String editUser(@RequestParam int id,HttpServletRequest request) {
+		request.setAttribute("user", userService.editUser(id));
+		request.setAttribute("mode", "MODE_UPDATE");
+		return "showAllUsers";
+	}
+	@PostMapping("/save-user")
+	public String registerUser(@ModelAttribute User user, BindingResult bindingResult, HttpServletRequest request) {
+		userService.saveMyUser(user);
+		request.setAttribute("mode", "MODE_HOME");
+		return "admin_home";
+	}
+	
+//	@RequestMapping("/login")
+//	public String login(HttpServletRequest request) {
+//		request.setAttribute("mode", "MODE_LOGIN");
+//		return "login_user";
+//	}
+//	
+//	@RequestMapping ("/login-user")
+//	public String loginUser(@ModelAttribute User user, HttpServletRequest request) {
+//		if(userService.findByUsernameAndPassword(user.getUserName(), user.getPassword())!=null) {
+//			return "user_home";
+//		}
+//		else {
+//			request.setAttribute("error", "Invalid Username or Password");
+//			request.setAttribute("mode", "MODE_LOGIN");
+//			return "login_user";
+//			
+//		}
+//	}
+	
 }

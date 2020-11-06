@@ -8,12 +8,14 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.book.dto.Book;
+import com.book.dto.User;
 import com.book.repository.BookRepo;
 import com.book.service.BookService;
 
@@ -52,4 +54,18 @@ public class BookController {
 		request.setAttribute("book",list);
 		return "user_search";
 	}
+	@RequestMapping(value = "/user-buy-book",method = RequestMethod.POST)
+	public void userBuyBook(Book book,User user) {
+		System.out.println("hey-----------------------------------------");
+		System.out.println("bookTitle"+book.getTitle());
+		bookService.bookUserMap(book, user);
+	}
+	
+	@GetMapping("/show-books")
+	public String showAllBooks(HttpServletRequest req) {
+		req.setAttribute("books",bookService.findAllBookUser());
+		req.setAttribute("mode","ALL_USERS_BOOKS");
+		return "showAllBooks";
+	}
+
 }

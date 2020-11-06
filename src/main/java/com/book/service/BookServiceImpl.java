@@ -7,13 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.book.dto.Book;
+import com.book.dto.BookUser;
+import com.book.dto.User;
 import com.book.repository.BookRepo;
+import com.book.repository.BookUserRepo;
 
 @Service
 public class BookServiceImpl implements BookService {
 
 	@Autowired
 	BookRepo bookRepo;
+	@Autowired
+	BookUserRepo bookUserRepo;
+	
 	
 	@Override
 	public List<Book> findAllByTitle(String title) {
@@ -33,6 +39,7 @@ public class BookServiceImpl implements BookService {
 		System.out.println(book);
 		System.out.println("initial qty "+book.getQuantity());
 		book.setQuantity(book.getQuantity() + 1);
+		book.setStatus("available");
 		System.out.println("add called "+book.getQuantity());
 		bookRepo.save(book);
 	}
@@ -46,6 +53,7 @@ public class BookServiceImpl implements BookService {
 //		System.out.println(isbn);
 //		//if()
 		b.setQuantity(b.getQuantity() + 1);
+		b.setStatus("available");
 ////		System.out.println("update called "+b.getQuantity());
 		bookRepo.save(b);
 	}
@@ -55,6 +63,63 @@ public class BookServiceImpl implements BookService {
 		// TODO Auto-generated method stub
 		return bookRepo.findById(isbn);
 	}
+
+	@Override
+	public void bookUserMap(Book book, User user) {
+		
+		//Optional<BookUser> b = bookUserRepo.findByBookId(book.getIsbn());
+		System.out.println("book title "+book.getTitle());
+		System.out.println("book isbn "+book.getIsbn());
+		System.out.println("author "+book.getAuthor());
+		//System.out.println("Author "+b.get().getBook().getAuthor());
+		System.out.println("UserId "+user.getId());
+		System.out.println("UserName "+user.getUserName());
+		System.out.println(bookUserRepo.getId(book.getIsbn(),user.getId()));
+		System.out.println("book status "+book.getStatus());
+		System.out.println("quantity "+book.getQuantity());
+		Integer x = bookUserRepo.getId(book.getIsbn(),user.getId());
+		if(x == null) {
+			System.out.println("Time to add");
+			BookUser bookUser = new BookUser();
+			if(book.getQuantity() == 0) {
+				book.setStatus("Not Available");
+				bookRepo.save(book);
+				return;
+			}
+			book.setQuantity(book.getQuantity() - 1);
+			bookUser.setBook(book);
+			bookUser.setUser(user);
+			bookUser.setBooksBought(bookUser.getBooksBought() + 1);
+			bookUser.setUserName(user.getUserName());
+			bookUser.setBookTitle(book.getTitle());
+			book.addBookUser(bookUser);
+			//user.addBookUser(bookUser);
+			//bookRepo.save(book);
+			bookUserRepo.save(bookUser);
+		}
+		else{
+			BookUser b = bookUserRepo.findById(x).get();
+			System.out.println("Time to update");
+			if(book.getQuantity() == 0) {
+				book.setStatus("Not Available");
+				bookRepo.save(book);
+				return;
+			}
+			book.setQuantity(book.getQuantity() - 1);
+			b.setBook(book);
+			b.setUser(user);
+			b.setBooksBought(b.getBooksBought() + 1);
+			b.setUserName(user.getUserName());
+			b.setBookTitle(book.getTitle());
+			book.addBookUser(b);
+			//user.addBookUser(b);
+			//bookRepo.save(book);
+			bookUserRepo.save(b);
+		}
+	}
 	
+	public List<BookUser> findAllBookUser(){
+		return bookUserRepo.findAll();
+	}
 
 }

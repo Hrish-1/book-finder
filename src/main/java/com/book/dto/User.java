@@ -1,23 +1,42 @@
 package com.book.dto;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class User {
 	@Id
 	@GeneratedValue
+	@Column(name = "user_id")
 	private int id;
 	private String name;
 	@Column(unique = true,length = 64)
 	private String userName;
-	private String password;
-	private String mail;
+	private  String password;
+	private  String mail;
+	
+	@OneToMany(mappedBy = "user")
+	Set<BookUser> bookUsers = new HashSet<BookUser>();
 	
 	public User() {
 		super();
+	}
+	
+	public Set<BookUser> getBookUsers() {
+		return bookUsers;
+	}
+
+	public void setBookUsers(Set<BookUser> bookUsers) {
+		this.bookUsers = bookUsers;
 	}
 
 	public int getId() {
@@ -59,6 +78,10 @@ public class User {
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
+	public void addBookUser(BookUser bookUser) {
+		this.bookUsers.add(bookUser);
+	}
+
 
 	@Override
 	public String toString() {

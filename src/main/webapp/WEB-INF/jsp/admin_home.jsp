@@ -42,14 +42,14 @@
                             Login
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="prep_log_form.htm">User Login</a>
+                            <a class="dropdown-item" href="show-users">Show Users</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Admin Login</a>
+                            <a class="dropdown-item" href="show-books">Show Books</a>
                         </div>
                     </li>
                     <li class="nav-item">
       	                <!-- register.htm -->
-                        <a class="nav-link text-light" href="prep_reg_form.htm">Register</a>
+                        <a class="nav-link text-light" href="prep_reg_form.htm">Logout</a>
                     </li>
                 </ul>
     
@@ -59,7 +59,7 @@
         <div class="row justify-content-center mt-4" id="book">
         </div>
     
-        <div class="card-footer text-light bg-dark fixed-bottom d-flex justify-content-center">
+        <div class="card-footer text-light bg-dark d-flex justify-content-center">
             <b>&#169 The Book Finder</b>
           </div>
 	</div>

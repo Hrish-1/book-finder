@@ -57,3 +57,43 @@ let getBook = function () {
 //	        `
 //    return bookHtml;
 //}
+  
+ let userBuy = async() => {
+	 
+ 	
+ 	let isbn = document.querySelector("#isbn").value;
+ 	let title = document.querySelector("#title").value;
+ 	let author = document.querySelector("#author").value;
+ 	let img = document.querySelector("#img").value;
+ 	let rating = document.querySelector("#rating").value;
+ 	let lang = document.querySelector("#lang").value;
+ 	let quantity = document.querySelector("#quantity").value;
+ 	let status = document.querySelector("#status").value;
+ 	let userName = document.querySelector("#userName").value;
+ 	let id = document.querySelector("#id").value;
+ 	
+	 const input = {
+		      isbn: isbn,
+		      title: title,
+		      author: author,
+		      img: img,
+		      rating: rating,
+		      lang: lang,
+		      quantity: quantity,
+		      status: status,
+		      userName: userName,
+		      id: id
+		    };
+	 
+	 const url = "http://localhost:8080/user-buy-book";
+	 console.log("-----------hey-----------");
+	 
+	 await fetch(url, {
+	      method: "POST",
+	      body: JSON.stringify(input),
+	      headers: {
+	        "Content-Type": "application/json"
+	      }
+	 });
+
+ };

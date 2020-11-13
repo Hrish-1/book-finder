@@ -16,4 +16,7 @@ public interface BookService {
 	Optional<Book> findById(String isbn);
 	void bookUserMap(Book book,User user);
 	List<BookUser> findAllBookUser();
+	void deleteMyBook(String id);
+	void saveMyBook(Book book);
+	Book editBook(String id);
 }

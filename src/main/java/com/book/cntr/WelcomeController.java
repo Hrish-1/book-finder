@@ -78,6 +78,7 @@ public class WelcomeController {
 	String adminCheck(User user,HttpSession session) {
 		if(user.getUserName().equals("Hrish1") && user.getPassword().equals("4321")) {
 			session.setAttribute("name","Hrish1");
+			session.setAttribute("AllBooks", bookService.findAll());
 			return "admin_home";
 		}else {
 			return "login_admin";
@@ -121,8 +122,9 @@ public class WelcomeController {
 	@PostMapping("/save-user")
 	public String registerUser(@ModelAttribute User user, BindingResult bindingResult, HttpServletRequest request) {
 		userService.saveMyUser(user);
-		request.setAttribute("mode", "MODE_HOME");
-		return "admin_home";
+		request.setAttribute("users", userService.showAllUsers());
+		request.setAttribute("mode", "ALL_USERS");
+		return "showAllUsers";
 	}
 	
 //	@RequestMapping("/login")

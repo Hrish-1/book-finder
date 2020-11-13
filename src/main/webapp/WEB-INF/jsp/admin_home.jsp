@@ -44,7 +44,9 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="show-users">Show Users</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="show-books">Show Books</a>
+                            <a class="dropdown-item" href="show-books">Show Purchases</a>
+                             <div class="dropdown-divider"></div>
+                             <a class="dropdown-item" href="show-all-books">Show Books</a>
                         </div>
                     </li>
                     <li class="nav-item">
@@ -59,9 +61,6 @@
         <div class="row justify-content-center mt-4" id="book">
         </div>
     
-        <div class="card-footer text-light bg-dark d-flex justify-content-center">
-            <b>&#169 The Book Finder</b>
-          </div>
 	</div>
 </body>
 </html>

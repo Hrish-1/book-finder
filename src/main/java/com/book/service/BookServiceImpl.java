@@ -81,7 +81,8 @@ public class BookServiceImpl implements BookService {
 		if(x == null) {
 			System.out.println("Time to add");
 			BookUser bookUser = new BookUser();
-			book.setQuantity(book.getQuantity() - 1);
+			if(book.getQuantity() > 0)
+				book.setQuantity(book.getQuantity() - 1);
 			if(book.getQuantity() <= 0) {
 				book.setStatus("Not Available");
 				bookRepo.save(book);
@@ -100,7 +101,8 @@ public class BookServiceImpl implements BookService {
 		else{
 			BookUser b = bookUserRepo.findById(x).get();
 			System.out.println("Time to update");
-			book.setQuantity(book.getQuantity() - 1);
+			if(book.getQuantity() > 0)
+				book.setQuantity(book.getQuantity() - 1);
 			if(book.getQuantity() <= 0) {
 				book.setStatus("Not Available");
 				bookRepo.save(book);
@@ -121,6 +123,23 @@ public class BookServiceImpl implements BookService {
 	
 	public List<BookUser> findAllBookUser(){
 		return bookUserRepo.findAll();
+	}
+
+	@Override
+	public void deleteMyBook(String id) {
+		bookRepo.deleteById(id);
+		
+	}
+
+	@Override
+	public void saveMyBook(Book book) {
+		// TODO Auto-generated method stub
+		bookRepo.save(book);
+	}
+
+	@Override
+	public Book editBook(String id) {
+		return bookRepo.findById(id).get();
 	}
 
 }

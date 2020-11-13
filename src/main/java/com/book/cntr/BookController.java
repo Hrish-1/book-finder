@@ -8,7 +8,10 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -66,6 +69,33 @@ public class BookController {
 	public String showAllBooks(HttpServletRequest req) {
 		req.setAttribute("books",bookService.findAllBookUser());
 		req.setAttribute("mode","ALL_USERS_BOOKS");
+		return "showAllBooks";
+	}
+	@GetMapping("/show-all-books")
+	public String showAllBookDetails(HttpServletRequest req) {
+		req.setAttribute("allbooks",bookService.findAll());
+		req.setAttribute("mode","BOOK_DETAILS");
+		return "showAllBooks";
+	}
+	@RequestMapping("/delete-book")
+	public String deleteUser(@RequestParam String id, HttpServletRequest request) {
+		bookService.deleteMyBook(id);
+		request.setAttribute("allbooks",bookService.findAll());
+		request.setAttribute("mode", "ALL_BOOKS");
+		return "showAllBooks";
+	}
+	
+	@RequestMapping("/edit-book")
+	public String editUser(@RequestParam String id,HttpServletRequest request) {
+		request.setAttribute("book", bookService.editBook(id));
+		request.setAttribute("mode", "BOOK_UPDATE");
+		return "showAllBooks";
+	}
+	@PostMapping("/save-book")
+	public String registerUser(@ModelAttribute Book book, BindingResult bindingResult, HttpServletRequest request) {
+		bookService.saveMyBook(book);
+		request.setAttribute("allbooks",bookService.findAll());
+		request.setAttribute("mode", "ALL_BOOKS");
 		return "showAllBooks";
 	}
 

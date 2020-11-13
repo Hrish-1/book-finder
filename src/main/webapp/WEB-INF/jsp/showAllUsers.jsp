@@ -14,6 +14,44 @@
 
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+  		        <a class="navbar-brand text-light" href="#"><b>The Book Finder</b></a>
+  
+ 	        <form class="form-inline my-2 my-lg-0 mx-5 w-75 ">
+                <input class="form-control mr-sm-2 w-75" id="search_book" type="text" placeholder="Search" aria-label="Search">
+                <button type="button" class="btn btn-outline-success my-2 my-sm-0" id="search_book_btn" onclick="callAjax()">Search</button>
+            </form>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link text-light" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropdown mx-1">
+                        <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Login
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="show-users">Show Users</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="show-books">Show Purchases</a>
+                             <div class="dropdown-divider"></div>
+                             <a class="dropdown-item" href="show-all-books">Show Books</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+      	                <!-- register.htm -->
+                        <a class="nav-link text-light" href="admin-logout">Logout</a>
+                    </li>
+                </ul>
+    
+            </div>
+        </nav>
+
 <c:choose>
 <c:when test="${mode=='MODE_HOME' }">
 			<div class="container" id="homediv">
@@ -58,7 +96,6 @@
 		<c:when test="${mode=='MODE_UPDATE' }">
 			<div class="container text-center">
 				<h3>Update User</h3>
-				<hr>
 				<form class="form-horizontal" method="POST" action="save-user">
 					<input type="hidden" name="id" value="${user.id }" />
 					<input type="hidden" name="userName" value="${user.userName}" />
